@@ -35,6 +35,11 @@ app.MapGet("/getproduct/{code}", ([FromRoute] string code) =>
     return code;
 });
 
+app.MapGet("/getproductheader", (HttpRequest request) =>
+{
+    return request.Headers["product-code"].ToString();
+});
+
 app.Run();
 
 ///NOTE:
@@ -43,3 +48,4 @@ app.Run();
 ///Podemos adicionar items ao nosso header
 ///[FromQuery] -> para pegar parametros da url (tudo depois da ? ma url é parametros "api.app.com/getproduct?datastart={date}&dateend={date}")
 ///[FromRoute] -> para pegar parametros da rota "api.app.com/getproduct/1"
+///HttpRequest -> è responsavel por receber as solicitações do usuario no endpoint (no postman no header a gente coloca a chave product-code e o valor dela, e quando o usaurio digitar essa url vai retornar o valor), nao e comum mais posso usar para mandar o token
