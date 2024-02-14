@@ -23,7 +23,22 @@ app.MapGet("/AddHeaderAndReturnBody", (HttpResponse response) =>
 
 app.MapPost("/saveProduct", (Product product) =>
 {
-    return product.Code + " - " + product.Name;
+    ProductRepository.AddProduct(product);
+});
+app.MapGet("/getproductRepository/{code}", ([FromRoute] string code) =>
+{
+    var product = ProductRepository.GetBy(code); 
+    return product;  
+});
+app.MapPut("/editProduct", (Product product) =>
+{
+    var productSave = ProductRepository.GetBy(product.Code);
+    productSave.Name = product.Name;
+});
+app.MapDelete("/deleteProduct/{code}", ([FromRoute] string code) =>
+{   
+    var productSave = ProductRepository.GetBy(code);
+    ProductRepository.Remove(productSave);
 });
 
 app.MapGet("/getproduct", ([FromQuery] string dateStart, [FromQuery] string dateEnd) =>
@@ -41,6 +56,8 @@ app.MapGet("/getproductheader", (HttpRequest request) =>
 });
 
 app.Run();
+
+
 
 ///NOTE:
 /// 1. Não podemos criar endpoints de metodo de acesso semelhante(get - put - delete - post) com o mesmo nome, exemplo Get("\") e Get("\")
