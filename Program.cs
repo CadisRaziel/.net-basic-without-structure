@@ -24,21 +24,31 @@ app.MapGet("/AddHeaderAndReturnBody", (HttpResponse response) =>
 app.MapPost("/saveProduct", (Product product) =>
 {
     ProductRepository.AddProduct(product);
+    return Results.Created($"/saveProduct/{product.Code}", product.Code);
 });
 app.MapGet("/getproductRepository/{code}", ([FromRoute] string code) =>
 {
-    var product = ProductRepository.GetBy(code); 
-    return product;  
+    var product = ProductRepository.GetBy(code);
+    if (product != null)
+    {
+        return Results.Ok(product);
+    }
+    else
+    {
+        return Results.NotFound();
+    }
 });
 app.MapPut("/editProduct", (Product product) =>
 {
     var productSave = ProductRepository.GetBy(product.Code);
     productSave.Name = product.Name;
+    return Results.Ok();
 });
 app.MapDelete("/deleteProduct/{code}", ([FromRoute] string code) =>
-{   
+{
     var productSave = ProductRepository.GetBy(code);
     ProductRepository.Remove(productSave);
+    return Results.Ok();
 });
 
 app.MapGet("/getproduct", ([FromQuery] string dateStart, [FromQuery] string dateEnd) =>
