@@ -24,3 +24,4 @@ C:\Users\Lenovo\Documents\aprendendo_csharp\api_cli\obj\Debug\net8.0\refint\api_
 C:\Users\Lenovo\Documents\aprendendo_csharp\api_cli\obj\Debug\net8.0\api_cli.pdb
 C:\Users\Lenovo\Documents\aprendendo_csharp\api_cli\obj\Debug\net8.0\api_cli.genruntimeconfig.cache
 C:\Users\Lenovo\Documents\aprendendo_csharp\api_cli\obj\Debug\net8.0\ref\api_cli.dll
+C:\Users\Lenovo\Documents\aprendendo_csharp\api_cli\bin\Debug\net8.0\appsettings.Staging.json
