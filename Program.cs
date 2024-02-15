@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+//app.Configuration -> ele sabe que é o configuration que definimos no repoitory e no appsettings
+//Aqui vamos inicializar (antes da api executar, ele seta a lista de produtos)
+var configuration = app.Configuration;
+ProductRepository.InitProducts(configuration);
+
 app.MapGet("/", () => "Hello World!");
 app.MapGet("/user", () => new
 {
@@ -64,6 +69,21 @@ app.MapGet("/getproductheader", (HttpRequest request) =>
 {
     return request.Headers["product-code"].ToString();
 });
+
+if(app.Environment.IsStaging()){ //-> Defino que o endpoint só vai funcionar em modo stage
+app.MapGet("/configuration/databaseStage", (IConfiguration configuration) => {
+    //retorna o nome/port do servidor que esta no arquivo appsettings.json
+    return Results.Ok($"{configuration["database:connection"]}/{configuration["database:port"]}");
+});
+}
+
+if(app.Environment.IsDevelopment()){ //-> Defino que o endpoint só vai funcionar em modo Prod
+app.MapGet("/configuration/databaseProd", (IConfiguration configuration) => {
+    //retorna o nome/port do servidor que esta no arquivo appsettings.json
+    return Results.Ok($"{configuration["database:connection"]}/{configuration["database:port"]}");
+});
+}
+
 
 app.Run();
 
