@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\api_cli.csproj": {}
+    "c:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\api_cli.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\api_cli.csproj": {
+    "c:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\api_cli.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\api_cli.csproj",
+        "projectUniqueName": "c:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\api_cli.csproj",
         "projectName": "api_cli",
-        "projectPath": "C:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\api_cli.csproj",
+        "projectPath": "c:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\api_cli.csproj",
         "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\obj\\",
+        "outputPath": "c:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
