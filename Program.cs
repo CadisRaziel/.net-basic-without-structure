@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//configurando o serviço do db
+builder.Services.AddDbContext<ApplicationDbContext>();
+
 var app = builder.Build();
 
 //app.Configuration -> ele sabe que é o configuration que definimos no repoitory e no appsettings
