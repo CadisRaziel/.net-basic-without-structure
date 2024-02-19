@@ -4052,11 +4052,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\api_cli.csproj",
+      "projectUniqueName": "C:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\api_cli.csproj",
       "projectName": "api_cli",
-      "projectPath": "c:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\api_cli.csproj",
+      "projectPath": "C:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\api_cli.csproj",
       "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\obj\\",
+      "outputPath": "C:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4122,13 +4122,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema ao ler o arquivo de cache c:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

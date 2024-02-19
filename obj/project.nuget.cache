@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qgfwyu0hGXqicfxPpqteIVjtJow3PCUG3+P0J1raKBHWzvwvh+SCl+cLxAKSgqrDCSFOTPomJuAxrIta+c4J2g==",
+  "dgSpecHash": "RlLmPjz7z0ISrD/a+Qc236zIKo4jMuaInJUsld7CLHXh66N1VAx64ebQe08dACUMY3l0LaSABp5uCw8PpFWdoA==",
   "success": true,
-  "projectFilePath": "c:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\api_cli.csproj",
+  "projectFilePath": "C:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\api_cli.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lenovo\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
@@ -80,12 +80,5 @@
     "C:\\Users\\Lenovo\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema ao ler o arquivo de cache c:\\Users\\Lenovo\\Documents\\aprendendo_csharp\\api_cli\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

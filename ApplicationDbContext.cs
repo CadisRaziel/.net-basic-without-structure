@@ -2,8 +2,10 @@ using Microsoft.EntityFrameworkCore;
 
 public class ApplicationDbContext : DbContext
 {
-    //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
     public DbSet<Product> Products { get; set; }    
+    public DbSet<Category> Category { get; set; }    
+    //public DbSet<Category> Categories { get; set; } // -> para renomear a tabela no banco de 'Category' para 'Categories' eu faço o comentario la em baixo no modelBuilder
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -12,9 +14,6 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Product>().Property(p => p.Code).IsRequired(false);
         modelBuilder.Entity<Product>().Property(p => p.Name).HasMaxLength(50).IsRequired(false);
         modelBuilder.Entity<Product>().Property(p => p.Description).HasMaxLength(150).IsRequired(false);
-    }
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer("Server=DESKTOP-QSN1B4G\\SQLEXPRESS;Database=Products;User=sa;Password=rhythms;MultipleActiveResultSets=true;Encrypt=True;TrustServerCertificate=YES;");
-    }
+        //modelBuilder.Entity<Category>().ToTable("Categories") //-> Caso eu queira que ao inves de criar no banco como 'Category' eu criar como 'Categories'
+    }  
 }
