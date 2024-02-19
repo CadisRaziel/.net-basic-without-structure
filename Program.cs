@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //configurando o serviço do db
-builder.Services.AddDbContext<ApplicationDbContext>();
+builder.Services.AddSqlServer<ApplicationDbContext>(builder.Configuration["Database:SqlServer"]);
 
 var app = builder.Build();
 
@@ -30,14 +31,40 @@ app.MapGet("/AddHeaderAndReturnBody", (HttpResponse response) =>
     };
 });
 
-app.MapPost("/saveProduct", (Product product) =>
+
+//!========== CRUD ==========
+app.MapPost("/saveProduct", (RecordProductRequestDTO recordProductRequestDTO, ApplicationDbContext  context) =>
 {
-    ProductRepository.AddProduct(product);
-    return Results.Created($"/saveProduct/{product.Code}", product.Code);
+    var category = context.Category.Where(c => c.Id == recordProductRequestDTO.CategoryId).First();
+    var product = new Product{
+        Code = recordProductRequestDTO.Code,
+        Name = recordProductRequestDTO.Name,
+        Description = recordProductRequestDTO.Description,
+        Category = category
+    };
+
+    if(recordProductRequestDTO.Tags != null) {
+        product.Tags = new List<Tag>();
+        foreach (var item in recordProductRequestDTO.Tags)
+        {
+            product.Tags.Add(new Tag { Name = item });
+        }
+    }
+
+    context.Products.Add(product);  
+    context.SaveChanges(); //Salva no banco
+    return Results.Created($"/saveProduct/{product.Id}", product.Id);
 });
-app.MapGet("/getproductRepository/{code}", ([FromRoute] string code) =>
+app.MapGet("/getproductRepository/{id}", ([FromRoute] int id, ApplicationDbContext  context) =>
 {
-    var product = ProductRepository.GetBy(code);
+
+    ///NOTE
+    ///Include -> para incluir a categoria e as tags do produto (incluir os relacionamentos que o product tem)
+    ///Se nao colocar ele, ele só vai retornar os 'Products' indepentende se la dentro de 'Product' tem relacionamento de tabela ou nao
+
+    var product = context.Products    
+    .Include(t => t.Tags)
+    .Where(p => p.Id == id).First();
     if (product != null)
     {
         return Results.Ok(product);
@@ -47,18 +74,44 @@ app.MapGet("/getproductRepository/{code}", ([FromRoute] string code) =>
         return Results.NotFound();
     }
 });
-app.MapPut("/editProduct", (Product product) =>
+app.MapPut("/editProduct/{id}", ([FromRoute] int id, RecordProductRequestDTO recordProductRequestDTO, ApplicationDbContext  context) =>
 {
-    var productSave = ProductRepository.GetBy(product.Code);
-    productSave.Name = product.Name;
+    var product = context.Products  
+    .Include(t => t.Tags)
+    .Where(p => p.Id == id).First();
+
+    var category = context.Category.Where(c => c.Id == recordProductRequestDTO.CategoryId).First();
+
+    product.Code = recordProductRequestDTO.Code;
+    product.Name = recordProductRequestDTO.Name;
+    product.Description = recordProductRequestDTO.Description; 
+    product.Category = category; 
+
+    //Ao remover a lista de tags em seguida eu ja crio uma nova atualizando
+    //Se eu nao remover a lista antiga e atualizar ela o que vai acontecer ?
+    //Vai acontecer que ela vai manter os dados antigos dessa lista e cria dados novos logo abaixo dos antigos (tudo isso no banco de dados)
+    if(recordProductRequestDTO.Tags != null) {
+        product.Tags = new List<Tag>(); //Ou seja se o usuario atualizar a lista de tags é necessario ter esse código para remover os antigos e incluir os novos (para nao sujar o banco)
+        //Agora se for um sistema que não tem problema, podemos deixar salvo as tags antigas eu só comento esse código acima.
+
+        foreach (var item in recordProductRequestDTO.Tags)
+        {
+            product.Tags.Add(new Tag { Name = item });
+        }
+    }
+   
+   context.SaveChanges();
     return Results.Ok();
 });
-app.MapDelete("/deleteProduct/{code}", ([FromRoute] string code) =>
+app.MapDelete("/deleteProduct/{id}", ([FromRoute] int id, ApplicationDbContext  context) =>
 {
-    var productSave = ProductRepository.GetBy(code);
-    ProductRepository.Remove(productSave);
+    var product = context.Products.Where(p => p.Id == id).First();
+    context.Products.Remove(product);
+    context.SaveChanges();
     return Results.Ok();
 });
+//!========== CRUD ==========
+
 
 app.MapGet("/getproduct", ([FromQuery] string dateStart, [FromQuery] string dateEnd) =>
 {
